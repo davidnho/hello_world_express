@@ -1,5 +1,8 @@
 var express = require('express');
 var app = express();
+app.set('view engine','pug');
+app.set('views','./views');
+app.use(express.static('public'));
 
 // app.get('/',function(req,res){
 // res.send('Hello Noel David. ');
@@ -26,6 +29,7 @@ var app = express();
 //     res.send('id: ' + req.params.id);
 // });
 
+// //MIDDLEWARES
 // //Simple request time logger
 // app.use(function(req, res, next){
 // 	console.log("A new request received at " + Date.now());
@@ -34,15 +38,51 @@ var app = express();
 // 	next();
 // });
 
-//Middleware function to log request protocol
-app.use('/things', function(req, res, next){
-	console.log("A request for things received at " + Date.now());
-	next();
+// //Middleware function to log request protocol
+// app.use(function(req, res, next){
+// 	console.log("A request for things received at " + Date.now());
+// 	next();
+// });
+
+// //Route handler that sends the response
+// app.get('/things', function(req, res){
+// 	res.send('Things');	
+// });
+
+// //First middleware before response is sent
+// app.use(function(req, res, next){
+// 	console.log("Start");
+// 	next();
+// });
+// //Route handler
+// app.get('/', function(req, res, next){
+// 	res.send("Middle");
+// 	next();
+// });
+
+// app.use('/', function(req, res){
+// 	console.log('End');
+// });
+
+//pug - basic
+app.get('/first_template',function(req, res){
+	res.render('first_view');
 });
 
-//Route handler that sends the response
-app.get('/things', function(req, res){
-	res.send('Things');	
+//pug - dynamic view
+app.get('/dynamic_view',function(req, res){
+	res.render('dynamic',
+	{
+		name : "Tutorialspoint",
+		user : {name : "Gail",age: 40},
+		url : "http://www.tutorialspoint.com"
+	}
+	);
+});
+
+//components - headers , footers
+app.get('/components', function(req, res){
+    res.render('content');
 });
 
 app.get('*', function(req, res){

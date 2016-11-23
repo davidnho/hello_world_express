@@ -1,0 +1,10 @@
+html
+	head
+		title Dynamic Pug
+		body
+			if(user.name==="Gail")
+				h1  Hello  #{user.name}
+				a(href = url) Link
+			else
+				h1  You need to login
+				a(href = "/first_template") Link
