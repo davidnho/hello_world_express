@@ -1,16 +1,16 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var upload = multer(); 
-var app = express();
 
-app.set('view engine', 'form');
-app.set('views', './views');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/my_db');
 
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(upload.array()); // for parsing multipart/form-data
-app.use(express.static('public'));
+var personSchema = mongoose.Schema({
+    name: String,
+    age: Number,
+    nationality: String
+});
+var Person = mongoose.model("Person", personSchema);
 
 app.post('/', function(req, res){
     console.log(req.body);
