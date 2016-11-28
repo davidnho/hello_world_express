@@ -8,9 +8,12 @@ app.engine('html', cons.swig)
 app.set('views', 'views');
 app.set('view engine', 'html');
 
-
 app.get('/angular',function(req, res){
    res.render('index');
+});
+
+app.get('/controller',function(req, res){
+   res.render('ang_controller');
 });
 
 app.get('*', function(req, res){
